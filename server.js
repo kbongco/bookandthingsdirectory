@@ -68,3 +68,10 @@ app.put('/books/:id', (req, res) => {
   books.splice(bookIndex, 1, book)
   res.json(book)
 })
+
+app.delete('/books/:id', async (req, res) => {
+  const id = req.params.id
+  const bookIndex = books.findIndex(book => book._id === id)
+  books.splice(bookIndex, 1)
+  res.json(books)
+})
