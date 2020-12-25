@@ -15,7 +15,7 @@ app.listen(PORT, () => {
   console.log(`Express server listening on port ${PORT}`)
 })
 
-const booksAndThings = [
+const books = [
   {
     "id": 01,
     "title": "Your Name",
@@ -45,24 +45,26 @@ app.get('/', (req, res) => {
   res.send('You are home!')
 })
 
-app.get('/booksandthings', (req, res) => {
-  res.json(booksAndThings)
+app.get('/books', (req, res) => {
+  res.json(books)
 })
 
-app.post('/booksandthings', (req, res) => {
-  const booksandthing = req.body
-  booksandthings.push(booksandthing)
-  res.json(booksandthing)
+app.post('/books', (req, res) => {
+  const book = req.body
+  books.push(book)
+  res.json(book)
 })
 
-app.get('/booksandthings/:id', (req, res) => {
-  const id = req.params.id;
-  const booksandthing = booksAndThings.filter(booksAndThing => booksAndThing.id === id)[0]
-  res.json(booksandthing)
+app.get('/books/:id', (req, res) => {
+  const id = req.params.id
+  const book = books.filter(book => book.id === id)[0]
+  res.json(book)
 })
 
-app.put('/booksandthings/:id', (req, res) => {
-  const id = req.params.id 
-  const thingsIndex = booksAndThings.findIndex(booksAndThing => booksAndThing.id === id)
-  const things = {}
+app.put('/books/:id', (req, res) => {
+  const id = req.params.id
+  const bookIndex = books.findIndex(book => book._id === id)
+  const book = { ...books[bookIndex], ...req.body }
+  books.splice(bookIndex, 1, book)
+  res.json(book)
 })
